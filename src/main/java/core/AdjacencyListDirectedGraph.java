@@ -2,6 +2,7 @@ package core;
 
 import core.node.DirectedNode;
 import core.node.UndirectedNode;
+import tool.GraphTools;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
     private int nbNodes;
     private int nbArcs;
     private HashMap<Integer, DirectedNode> adjacencyList;
+    private int[][] weightAdjacencyMatrix;
 
     public AdjacencyListDirectedGraph(int[][] matrix){
         this.adjacencyList = new HashMap<>();
@@ -107,5 +109,15 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
             node.setPredecessors(tmp);
         }
         return inverseGraph;
+    }
+
+    public int[][] setRandomWeights(int range, boolean acceptNegatif){
+        this.weightAdjacencyMatrix = GraphTools.generateGraphWeightData(this.toAdjacencyMatrix(), range, acceptNegatif);
+        return this.weightAdjacencyMatrix;
+    }
+
+    @Override
+    public int getWeight(int x, int y) {
+        return this.weightAdjacencyMatrix[x][y];
     }
 }

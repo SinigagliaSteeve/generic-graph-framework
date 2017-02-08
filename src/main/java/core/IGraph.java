@@ -14,6 +14,10 @@ public interface IGraph {
     List<Integer> getSuccessors(int x);
     List<Integer> getPredecessors(int x);
 
+    default int getWeight(int x, int y){
+        return 0;
+    }
+
     default void breadthFirstSearch(){
         System.out.println("Processing breadth-first search on " + this.getClass().getSimpleName() + "...");
         boolean[] mark = new boolean[this.getNbNodes()];

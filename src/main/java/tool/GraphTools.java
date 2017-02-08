@@ -72,4 +72,21 @@ public final class GraphTools {
         }
         return true;
     }
+
+    public static int[][] generateGraphWeightData(int[][] matrix, int range, boolean acceptNegatif){
+        int[][] weightMatrix = matrix.clone();
+        for(int i = 0; i < weightMatrix.length; i++) {
+            for (int j = 0; j < weightMatrix.length; j++) {
+                if(weightMatrix[i][j] == 1) {
+                    weightMatrix[i][j] = generateRandomNumber(range, acceptNegatif);
+                }
+            }
+        }
+        return weightMatrix;
+    }
+
+    private static int generateRandomNumber(int range, boolean acceptNegatif){
+        int pNumber = (int)(Math.random() * range);
+        return acceptNegatif ? pNumber * (Math.random() > 0.5 ? 1 : -1) : pNumber;
+    }
 }
