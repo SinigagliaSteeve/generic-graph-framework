@@ -14,4 +14,14 @@ public class ArrayTools {
             System.out.println("[" + i + "] => " + array[i]);
         }
     }
+
+    /**
+     * Show an int array in a proper way.
+     * @param array
+     */
+    public static void showArray(int[] array){
+        for(int i = 0; i < array.length; i++){
+            System.out.println("[" + i + "] => " + array[i]);
+        }
+    }
 }
