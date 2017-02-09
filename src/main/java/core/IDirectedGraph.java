@@ -1,6 +1,7 @@
 package core;
 
 import core.node.DirectedNode;
+import tool.ArrayTools;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,17 +19,19 @@ public interface IDirectedGraph extends IGraph{
 
     default int[] bellman(int s) throws Exception {
         int[] dist = new int[this.getNbNodes()];
-        int[] prev = new int[this.getNbNodes()];
+        int[] pred = new int[this.getNbNodes()];
         for(int i = 0; i < this.getNbNodes(); i++){
             dist[i] = Integer.MAX_VALUE;
-            prev[i] = 0;
+            pred[i] = 0;
         }
         dist[s] = 0;
-        for(int i = 0; i < this.getNbNodes() - 1; i++){
-            for (int v = 0; v < this.getNbNodes(); v++) {
-                for (int succ : this.getSuccessors(v)) {
-                    if (dist[succ] > dist[v] + this.getWeight(v, succ))
-                        dist[succ] = dist[v] + this.getWeight(v, succ);
+        for(int k = 0; k < this.getNbNodes() - 1; k++) {
+            for(int x = 0; x < this.getNbNodes(); x++) {
+                for(int y : this.getSuccessors(x)) {
+                    if(dist[y] > dist[x] + this.getWeight(x, y)) {
+                        dist[y] = dist[x] + this.getWeight(x, y);
+                        pred[y] = x;
+                    }
                 }
             }
         }
@@ -39,7 +42,6 @@ public interface IDirectedGraph extends IGraph{
                     throw new Exception("Negative cycle found");
             }
         }
-
         return dist;
     }
 }

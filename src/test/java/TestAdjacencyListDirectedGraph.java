@@ -46,5 +46,10 @@ public class TestAdjacencyListDirectedGraph {
 
         System.out.println("generate random weights() ...");
         GraphTools.showMatrix(listDirectedGraph.setRandomWeights(5, false));
+
+        System.out.println("get successors() ...");
+        for(int i = 0; i < listDirectedGraph.getNbNodes(); i++){
+            System.out.println(listDirectedGraph.getSuccessors(i));
+        }
     }
 }

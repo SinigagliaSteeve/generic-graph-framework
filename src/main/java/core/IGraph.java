@@ -24,6 +24,7 @@ public interface IGraph {
         LinkedList<Integer> toVisit = new LinkedList<>();
         toVisit.offer(0);
         mark[0] = true;
+
         while (!toVisit.isEmpty()) {
             int current = toVisit.poll();
             for(int tmp : this.getSuccessors(current)){

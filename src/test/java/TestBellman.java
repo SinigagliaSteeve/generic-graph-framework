@@ -18,7 +18,7 @@ public class TestBellman {
         System.out.println("----");
         GraphTools.showMatrix(listDirectedGraph.setRandomWeights(5, true));
         try {
-            ArrayTools.showArray(listDirectedGraph.bellman(1));
+            ArrayTools.showArray(listDirectedGraph.bellman(0));
         } catch (Exception e) {
             e.printStackTrace();
         }
