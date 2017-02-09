@@ -1,9 +1,11 @@
 package core;
 
 import core.node.DirectedNode;
+import core.node.Edge;
 import core.node.UndirectedNode;
 import tool.GraphTools;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,15 +18,16 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
     private int nbArcs;
     private HashMap<Integer, DirectedNode> adjacencyList;
     private int[][] weightAdjacencyMatrix;
+    private List<Edge> edgeList;
 
-    public AdjacencyListDirectedGraph(int[][] matrix){
+    public AdjacencyListDirectedGraph(int[][] matrix) {
         this.adjacencyList = new HashMap<>();
-        for(int i = 0; i < matrix.length; i++){
+        for (int i = 0; i < matrix.length; i++) {
             this.adjacencyList.put(i, new DirectedNode(i));
         }
-        for(int i = 0; i < matrix.length; i++){
-            for(int j = 0; j < matrix.length; j++){
-                if(matrix[i][j] == 1){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[i][j] == 1) {
                     this.adjacencyList.get(i).addSuccessor(j);
                     this.adjacencyList.get(j).addPredecessor(i);
                 }
@@ -32,12 +35,12 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
         }
         this.nbNodes = this.adjacencyList.size();
         this.nbArcs = 0;
-        for(DirectedNode node : this.adjacencyList.values()){
+        for (DirectedNode node : this.adjacencyList.values()) {
             this.nbArcs += node.getNbArcs();
         }
     }
 
-    public AdjacencyListDirectedGraph(IDirectedGraph directedGraph){
+    public AdjacencyListDirectedGraph(IDirectedGraph directedGraph) {
         this.nbArcs = directedGraph.getNbArcs();
         this.nbNodes = directedGraph.getNbNodes();
         this.adjacencyList = (HashMap<Integer, DirectedNode>) directedGraph.getAdjacencyList().clone();
@@ -90,10 +93,10 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
     @Override
     public int[][] toAdjacencyMatrix() {
         int n = this.adjacencyList.size();
-        int[][] adjacencyMatrix = new int [n][n];
-        for(int i = 0; i < this.adjacencyList.size(); i++) {
-            for(int j = 0; j < this.adjacencyList.size(); j++) {
-                if(this.adjacencyList.get(i).hasSuccessor(j)) adjacencyMatrix[i][j] = 1;
+        int[][] adjacencyMatrix = new int[n][n];
+        for (int i = 0; i < this.adjacencyList.size(); i++) {
+            for (int j = 0; j < this.adjacencyList.size(); j++) {
+                if (this.adjacencyList.get(i).hasSuccessor(j)) adjacencyMatrix[i][j] = 1;
                 else adjacencyMatrix[i][j] = 0;
             }
         }
@@ -103,13 +106,14 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
     @Override
     public IDirectedGraph computeInverse() {
         AdjacencyListDirectedGraph inverseGraph = new AdjacencyListDirectedGraph(this);
-        for(DirectedNode node : inverseGraph.adjacencyList.values()){
+        for (DirectedNode node : inverseGraph.adjacencyList.values()) {
             List<Integer> tmp = node.getSuccessors();
             node.setSuccessors(node.getPredecessors());
             node.setPredecessors(tmp);
         }
         return inverseGraph;
     }
+
 
     public int[][] setRandomWeights(int range, boolean acceptNegatif){
         this.weightAdjacencyMatrix = toAdjacencyMatrix().clone();
@@ -125,14 +129,48 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
 
     @Override
     public int getWeight(int x, int y) {
+//        if (this.[x][y] == 0) return Integer.MAX_VALUE;
         return this.weightAdjacencyMatrix[x][y];
     }
 
-    public void setWeightAdjacencyMatrix(int[][] weightAdjacencyMatrix) {
-        this.weightAdjacencyMatrix = weightAdjacencyMatrix;
+    @Override
+    public int[][] getWeightAdjacencyMatrix() {
+        return weightAdjacencyMatrix;
+    }
+
+    @Override
+    public void setWeightAdjacencyMatrix(int[][] matrix) {
+        int[][] adjacencyMatrix = toAdjacencyMatrix();
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            for (int j = 0; j < adjacencyMatrix.length; j++) {
+                if (adjacencyMatrix[i][j] == 0)
+                    matrix[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        this.weightAdjacencyMatrix = matrix;
+        buildListEdge();
+
+    }
+
+    @Override
+    public List<Edge> getEdges() {
+        return this.edgeList;
+    }
+
+    protected void buildListEdge() {
+        this.edgeList = new ArrayList<>();
+        for (int i = 0; i < this.weightAdjacencyMatrix.length; i++) {
+            for (int j = 0; j < this.weightAdjacencyMatrix.length; j++) {
+                if (this.weightAdjacencyMatrix[i][j] != Integer.MAX_VALUE) {
+                    this.edgeList.add(new Edge(i, j, weightAdjacencyMatrix[i][j]));
+                }
+            }
+        }
     }
 
     public int[][] toWeightAdjacencyMatrix() {
         return this.weightAdjacencyMatrix;
     }
+
 }
