@@ -33,10 +33,11 @@ public class ArrayTools {
 
     /**
      * Show an int array in a proper way.
+     *
      * @param array
      */
-    public static void showArrayInLine(boolean[] array){
-        for(int i = 0; i < array.length; i++){
+    public static void showArrayInLine(boolean[] array) {
+        for (int i = 0; i < array.length; i++) {
             System.out.print("[" + (array[i] ? "1" : "0") + "]");
         }
         System.out.println("");
@@ -59,5 +60,17 @@ public class ArrayTools {
         for (Integer node : maps.keySet()) {
             System.out.println("[" + node + "] => " + maps.get(node));
         }
+    }
+
+    public static String arrayToString(int[] array) {
+        StringBuffer strb = new StringBuffer();
+
+        strb.append("[ ");
+        for (int i : array) {
+            strb.append(i).append(" ");
+        }
+        strb.append("]");
+
+        return strb.toString();
     }
 }
