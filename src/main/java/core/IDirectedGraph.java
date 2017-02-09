@@ -46,25 +46,18 @@ public interface IDirectedGraph extends IGraph {
         }
 
         for (int k = 1; k < this.getNbNodes() - 1; k++) {
-            for (int x = 0; x < this.getNbNodes(); x++) {
-                int node = (int) dists.keySet().toArray()[x];
-                for (int y : this.getSuccessors(node)) {
-                    int current = dists.get(y);
-                    int compareTo = dists.get(x) + this.getWeight(node, y);
-                    dists.put(y, GraphTools.getMinBetween(current, compareTo));
-                }
+            for (Edge edge : this.getEdges()) {
+                dists.put(edge.to, GraphTools.getMinBetween(dists.get(edge.to),
+                        dists.get(edge.from) + this.getWeight(edge.from, edge.to)));
             }
         }
 
 
-        for (int v = 0; v < this.getNbNodes(); v++) {
-            for (int succ : this.getSuccessors((Integer) dists.keySet().toArray()[v])) {
-                if (dists.get(succ) > dists.get(v) + this.getWeight(v, succ))
-                    throw new Exception("Negative cycle found");
-
+        for (Edge edge : this.getEdges()) {
+            if ((dists.get(edge.from) + this.getWeight(edge.from,edge.to)) < dists.get(edge.to)){
+                throw new Exception("Negative cycle found");
             }
         }
-
 
         return dists;
     }
@@ -78,6 +71,7 @@ public interface IDirectedGraph extends IGraph {
             dist[i] = Integer.MAX_VALUE;
             pred[i] = 0;
         }
+
         dist[s] = 0;
         for (int k = 1; k < this.getNbNodes() - 1; k++) {
             for (Edge edge : this.getEdges()) {

@@ -47,7 +47,7 @@ public class TestBellman {
             try {
                 ArrayTools.showArray(listDirectedGraph1.bellman(0));
                 System.out.println("------------");
-//                ArrayTools.showMap(listDirectedGraph1.bellmanv2(0));
+                ArrayTools.showMap(listDirectedGraph1.bellmanv2(0));
                 noExc = true;
             } catch (Exception e) {
                 System.out.println("Regenerate random weights");
