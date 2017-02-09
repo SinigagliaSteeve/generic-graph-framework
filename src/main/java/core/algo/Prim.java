@@ -12,7 +12,7 @@ import java.util.List;
 public class Prim {
 
     public static void prim (IUndirectedGraph G, int s) {
-        System.out.println("Processing prim algorithm on " + G.getClass().getSimpleName() + "...");
+        System.out.println("Processing PRIM algorithm on " + G.getClass().getSimpleName() + "...");
         int[] cost = new int[G.getNbNodes()];
         int[] pred = new int[G.getNbNodes()];
         boolean[] visited = new boolean[G.getNbNodes()];
@@ -23,16 +23,16 @@ public class Prim {
         }
         cost[s] = 0;
         for (int i=0; i < cost.length; i++) {
-            int next = minVertex(cost, visited);
-            visited[next] = true;
+            int x = minVertex(cost, visited);
+            visited[x] = true;²
 
-            List<Integer> n = G.getSuccessors(next);
-            for(int j=0; j<n.size(); j++){
-                int v = n.get(j);
-                int d = G.getWeight(next, v);
-                if(cost[v] > d){
-                    cost[v] = d;
-                    pred[v] = next;
+            List<Integer> successors = G.getSuccessors(x);
+            for(int j=0; j<successors.size(); j++){
+                int succ = successors.get(j);
+                int w = G.getWeight(x, succ);
+                if(cost[succ] > w){
+                    cost[succ] = w;
+                    pred[succ] = x;
                 }
             }
         }
