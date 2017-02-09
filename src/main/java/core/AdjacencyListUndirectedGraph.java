@@ -1,6 +1,7 @@
 package core;
 
 import core.node.UndirectedNode;
+import tool.GraphTools;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ public class AdjacencyListUndirectedGraph implements IUndirectedGraph {
     private int nbNodes;
     private int nbEdges;
     private HashMap<Integer, UndirectedNode> adjacencyList;
+    private int[][] weightAdjacencyMatrix;
 
     public AdjacencyListUndirectedGraph(int[][] matrix){
         this.adjacencyList = new HashMap<>();
@@ -89,5 +91,24 @@ public class AdjacencyListUndirectedGraph implements IUndirectedGraph {
             }
         }
         return adjacencyMatrix;
+    }
+
+    public int[][] setRandomWeights(int range, boolean acceptNegatif){
+        this.weightAdjacencyMatrix = toAdjacencyMatrix().clone();
+        for(int i = 0; i < this.weightAdjacencyMatrix.length; i++) {
+            for(int j = 0; j < i; j++) {
+                if(this.weightAdjacencyMatrix[i][j] == 1) {
+                    int rdmNumber = GraphTools.generateRandomNumber(range, acceptNegatif);
+                    this.weightAdjacencyMatrix[i][j] = rdmNumber;
+                    this.weightAdjacencyMatrix[j][i] = rdmNumber;
+                }
+            }
+        }
+        return this.weightAdjacencyMatrix;
+    }
+
+    @Override
+    public int getWeight(int x, int y) {
+        return this.weightAdjacencyMatrix[x][y];
     }
 }
