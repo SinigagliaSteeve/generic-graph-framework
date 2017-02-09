@@ -1,5 +1,6 @@
 import core.AdjacencyListDirectedGraph;
 import core.AdjacencyListUndirectedGraph;
+import core.algo.Bellman;
 import tool.ArrayTools;
 import tool.GraphTools;
 
@@ -45,9 +46,10 @@ public class TestBellman {
             System.out.println("----");
 //            GraphTools.showMatrix(listDirectedGraph1.setRandomWeights(5, true));
             try {
-                ArrayTools.showArray(listDirectedGraph1.bellman(0));
-                System.out.println("------------");
-                ArrayTools.showMap(listDirectedGraph1.bellmanv2(0));
+                ArrayTools.showArray(Bellman.compute(listDirectedGraph1,0));
+//                ArrayTools.showArray(listDirectedGraph1.bellman(0));
+//                System.out.println("------------");
+//                ArrayTools.showMap(listDirectedGraph1.bellmanv2(0));
                 noExc = true;
             } catch (Exception e) {
                 System.out.println("Regenerate random weights");

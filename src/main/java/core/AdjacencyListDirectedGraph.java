@@ -169,4 +169,8 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
         }
     }
 
+    public int[][] toWeightAdjacencyMatrix() {
+        return this.weightAdjacencyMatrix;
+    }
+
 }
