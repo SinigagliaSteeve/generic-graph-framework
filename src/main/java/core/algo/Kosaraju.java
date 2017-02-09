@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Computes Strong Connected Components from a Undirected Graph with the Kurasaju algorithm.
  * Created by Alexis on 09/02/2017.
  */
-public class Kusaraju {
+public class Kosaraju {
     private IDirectedGraph graphToExplore;
     private IDirectedGraph inductedGraph;
     private boolean[] mark;
@@ -17,7 +17,7 @@ public class Kusaraju {
     private int[] begin;
     private int[] end;
 
-    public Kusaraju(IDirectedGraph G){
+    public Kosaraju(IDirectedGraph G){
         this.graphToExplore = G;
         int[][] matrix = new int[G.getNbNodes()][G.getNbNodes()];
         inductedGraph = new AdjacencyListDirectedGraph(matrix);
@@ -43,11 +43,8 @@ public class Kusaraju {
 
         // Explore a second time
         for (int i = 0; i < graphToExplore.getNbNodes(); i++) {
-            // Gets max end not explored yet
             int max = getMaxEndNotExplored();
-//            if(!mark[i]){
             exploreDepthDirectedGraph(max);
-//            }
         }
 
         return this.inductedGraph;

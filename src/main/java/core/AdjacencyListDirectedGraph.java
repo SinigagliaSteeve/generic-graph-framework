@@ -127,4 +127,12 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
     public int getWeight(int x, int y) {
         return this.weightAdjacencyMatrix[x][y];
     }
+
+    public void setWeightAdjacencyMatrix(int[][] weightAdjacencyMatrix) {
+        this.weightAdjacencyMatrix = weightAdjacencyMatrix;
+    }
+
+    public int[][] toWeightAdjacencyMatrix() {
+        return this.weightAdjacencyMatrix;
+    }
 }

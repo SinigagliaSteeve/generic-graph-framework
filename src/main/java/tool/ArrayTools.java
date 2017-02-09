@@ -29,6 +29,17 @@ public class ArrayTools {
      * Show an int array in a proper way.
      * @param array
      */
+    public static void showArrayInLine(boolean[] array){
+        for(int i = 0; i < array.length; i++){
+            System.out.print("[" + (array[i] ? "1" : "0") + "]");
+        }
+        System.out.println("");
+    }
+
+    /**
+     * Show an int array in a proper way.
+     * @param array
+     */
     public static void showArrayInLine(int[] array){
         for(int i = 0; i < array.length; i++){
             System.out.print("[" + array[i] + "]");
