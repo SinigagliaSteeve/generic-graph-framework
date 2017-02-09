@@ -24,7 +24,7 @@ public class Prim {
         cost[s] = 0;
         for (int i=0; i < cost.length; i++) {
             int x = minVertex(cost, visited);
-            visited[x] = true;²
+            visited[x] = true;
 
             List<Integer> successors = G.getSuccessors(x);
             for(int j=0; j<successors.size(); j++){
