@@ -118,6 +118,17 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
 
     @Override
     public int getWeight(int x, int y) {
+//        if (this.[x][y] == 0) return Integer.MAX_VALUE;
         return this.weightAdjacencyMatrix[x][y];
+    }
+
+    @Override
+    public int[][] getWeightAdjacencyMatrix() {
+        return weightAdjacencyMatrix;
+    }
+
+    @Override
+    public void setWeightAdjacencyMatrix(int[][] matrix) {
+        this.weightAdjacencyMatrix = matrix;
     }
 }
