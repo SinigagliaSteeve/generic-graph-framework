@@ -89,8 +89,9 @@ public final class GraphTools {
         return weightMatrix;
     }
 
-    private static int generateRandomNumber(int range, boolean acceptNegatif) {
-        int pNumber = (int) (Math.random() * range);
+
+    public static int generateRandomNumber(int range, boolean acceptNegatif){
+        int pNumber = (int)(Math.random() * range);
         return acceptNegatif ? pNumber * (Math.random() > 0.5 ? 1 : -1) : pNumber;
     }
 

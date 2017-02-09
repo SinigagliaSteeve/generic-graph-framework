@@ -40,11 +40,12 @@ public class ArrayTools {
         for (int i = 0; i < array.length; i++) {
             System.out.print("[" + array[i] + "]");
         }
+        System.out.println("");
     }
 
     public static void showMap(LinkedHashMap<Integer, Integer> maps) {
         for (Integer node : maps.keySet()) {
-            System.out.println("["+node + "] => " + maps.get(node));
+            System.out.println("[" + node + "] => " + maps.get(node));
         }
     }
 }

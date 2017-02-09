@@ -114,8 +114,16 @@ public class AdjacencyListDirectedGraph implements IDirectedGraph {
         return inverseGraph;
     }
 
-    public int[][] setRandomWeights(int range, boolean acceptNegatif) {
-        this.weightAdjacencyMatrix = GraphTools.generateGraphWeightData(this.toAdjacencyMatrix(), range, acceptNegatif);
+
+    public int[][] setRandomWeights(int range, boolean acceptNegatif){
+        this.weightAdjacencyMatrix = toAdjacencyMatrix().clone();
+        for(int i = 0; i < this.weightAdjacencyMatrix.length; i++) {
+            for (int j = 0; j < this.weightAdjacencyMatrix.length; j++) {
+                if(this.weightAdjacencyMatrix[i][j] == 1) {
+                    this.weightAdjacencyMatrix[i][j] = GraphTools.generateRandomNumber(range, acceptNegatif);
+                }
+            }
+        }
         return this.weightAdjacencyMatrix;
     }
 
